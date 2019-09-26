@@ -10,6 +10,7 @@ A simple Job locator app made with react native maps that stores all of the info
 * Download & parse data from Indeed API
 * Save jobs to a GPS location using the expo Mapview component 
 * Implementation of stack and bottomtab navigation with react navigation
+* Implementation of react navigation modal
 * & much more
 
 # Demo
