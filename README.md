@@ -14,6 +14,6 @@ A simple Job locator app made with react native maps that stores all of the info
 
 # Demo
 
-![](https://media.giphy.com/media/iBj8c25K7Oi4AMTtPv/giphy.gif)
+![](https://media.giphy.com/media/lQOReHt2ZF94dtyIyC/giphy.gif)
 
 
