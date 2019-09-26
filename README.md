@@ -11,3 +11,9 @@ A simple Job locator app made with react native maps that stores all of the info
 * Save jobs to a GPS location using the expo Mapview component 
 * Implementation of stack and bottomtab navigation with react navigation
 * & much more
+
+# Demo
+
+![](https://media.giphy.com/media/iBj8c25K7Oi4AMTtPv/giphy.gif)
+
+
