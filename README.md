@@ -1,6 +1,6 @@
 # job_locator
 
-A simple Job locator app made with react native maps that stores all of the information of the jobs saved by the user.
+A Job locator app made with react native maps that makes it possible for users to find IT jobs closest to locations chosen by the user
 
 # What I Learned
 
