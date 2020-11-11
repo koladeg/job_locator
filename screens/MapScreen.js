@@ -57,10 +57,12 @@ class MapScreen extends Component {
         <View style = {styles.buttonContainer}>
           <Button
             large
-            title="Search This Area"
+            title="Find Hospitals In Area"
             icon={{ name: 'search' }}
             onPress={this.onButtonPress}
             buttonStyle={styles.headerButton}
+            containerStyle={{ marginVertical: 10, height: 50, width: 350 }}
+            titleStyle={{ fontWeight: 'bold' }}
           />
         </View>
       </View>
@@ -74,6 +76,8 @@ const styles = {
     bottom: 20,
     left: 0,
     right: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   headerButton: {
     backgroundColor: "#009688",

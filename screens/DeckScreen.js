@@ -9,21 +9,17 @@ import * as actions from '../actions';
 
 
 class DeckScreen extends Component {
-  static navigationOptions = {
-    title: 'Jobs',
-
-  }
 
   renderCard(job){
     const initialRegion = {
-      longitude: job.coordinates.longitude,
-      latitude: job.coordinates.latitude,
+      longitude: job.venue.location.lng,
+      latitude: job.venue.location.lat,
       longitudeDelta: 0.02,
       latitudeDelta: 0.045
     }
     return (
       <Card
-        title={job.name}
+        title={job.venue.name}
       >
         <View style={{ height: 300}}>
           <MapView
@@ -39,18 +35,17 @@ class DeckScreen extends Component {
           </MapView>
         </View>
         <View style={styles.detailWrapper}>
-          <Text>{job.phone}</Text>
-          <Text>{job.review_count}</Text>
+          <Text>{job.venue.location.address}</Text>
         </View>
         <Text>
-         {job.alias.replace(/-/g, ' ')}
+         This is a spot
         </Text>
       </Card>
     );
   }
   renderNoMoreCards = () => {
     return (
-      <Card title="No More Jobs">
+      <Card title="No More Hospitals">
         <Button
           title="Back to Map"
           large
@@ -70,6 +65,7 @@ class DeckScreen extends Component {
             renderCard={this.renderCard}
             renderNoMoreCards={this.renderNoMoreCards}
             onSwipeRight={job => this.props.likeJob(job)}
+            keyProp="referralId"
           />
       </View>
     );
@@ -85,7 +81,7 @@ const styles = {
 }
 
 function mapStateToProps({ jobs }) {
-  return { jobs: jobs.businesses };
+  return { jobs: jobs };
 }
 
 export default connect(mapStateToProps, actions) (DeckScreen) ;

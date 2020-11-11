@@ -1,6 +1,6 @@
-import Expo, { Notifications } from 'expo';
+import Expo from 'expo';
 import React from 'react';
-import { StyleSheet, Text, View, Alert } from 'react-native';
+import { StyleSheet, Text, View, Alert, Animated, Easing } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { createBottomTabNavigator, createAppContainer, createStackNavigator  } from 'react-navigation';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -14,22 +14,10 @@ import MapScreen from './screens/MapScreen';
 import DeckScreen from './screens/DeckScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import ReviewScreen from './screens/ReviewScreen';
+import ModalScreen from './screens/ModalScreen';
 
 export default class App extends React.Component {
-  componentDidMount() {
-    registerForNotifications();
-    Notifications.addListener((notification) => {
-      const { data: { text }, origin } = notification;
-
-      if (origin === 'received' && text) {
-        Alert.alert(
-          'New Push Notification',
-          text,
-          [{ text: 'ok.'}]
-        );
-      }
-    });
-  }
+  
   render() {
     return (
       <Provider store={store}>
@@ -79,6 +67,14 @@ const MainNavigator = createBottomTabNavigator({
         />
       );
     },
+    tabBarOnPress: ({ navigation, defaultHandler }) => {
+        if (
+          navigation.state.routeName === "deck"
+        ) {
+          return null;
+        }
+        defaultHandler();
+      },
   }),
     })
   }
@@ -89,7 +85,48 @@ const MainNavigator = createBottomTabNavigator({
   lazy: true
 });
 
-const AppContainer = createAppContainer(MainNavigator);
+const RootStack = createStackNavigator(
+  {
+    Main: {
+      screen: MainNavigator,
+    },
+    MyModal: {
+      screen: ModalScreen,
+    },
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none',
+    transparentCard: true,
+    transitionConfig: () => ({
+      transitionSpec: {
+        duration: 750,
+        easing: Easing.out(Easing.poly(4)),
+        timing: Animated.timing,
+        useNativeDriver: true,
+      },
+      screenInterpolator: sceneProps => {
+        const { layout, position, scene } = sceneProps;
+        const thisSceneIndex = scene.index;
+
+        const height = layout.initHeight;
+        const translateY = position.interpolate({
+          inputRange: [thisSceneIndex - 1, thisSceneIndex, thisSceneIndex + 1],
+          outputRange: [height, 0, 0],
+        });
+
+        const opacity = position.interpolate({
+          inputRange: [thisSceneIndex - 1, thisSceneIndex, thisSceneIndex + 1],
+          outputRange: [1, 1, 0.5],
+        });
+
+        return { opacity, transform: [{ translateY }] };
+      },
+    })
+  }
+);
+
+const AppContainer = createAppContainer(RootStack);
 
 const styles = StyleSheet.create({
   container: {

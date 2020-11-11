@@ -20,9 +20,8 @@ class SettingsScreen extends Component {
       <View>
           <Button
             title= "Reset Liked Jobs"
-            large
             icon={{ name: 'delete-forever'}}
-            onPress={this.props.clearLikedJobs}
+            onPress={() => this.props.navigation.navigate('MyModal')}
             buttonStyle={styles.headerButton}
           />
       </View>
@@ -36,4 +35,4 @@ const styles = {
   }
 }
 
-export default connect (null, { clearLikedJobs }) (SettingsScreen) ;
+export default SettingsScreen;

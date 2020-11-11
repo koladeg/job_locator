@@ -13,7 +13,7 @@ export default function(state = [], action) {
     case LIKE_JOB:
       return _.uniqBy([
         action.payload, ...state
-      ], 'id');
+      ], 'referralId');
     default:
       return state;
   }

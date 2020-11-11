@@ -5,23 +5,28 @@ import {
   LIKE_JOB,
   CLEAR_LIKED_JOBS
 } from './types';
-import REACT_APP_YELP_API_KEY from '../config_keys';
 
-const YELP_API_KEY = REACT_APP_YELP_API_KEY;
+import { CLIENT_ID, CLIENT_SECRET } from '../config_keys';
+
+
 export const fetchJobs = (region, callback) => async (dispatch) => {
   try{
-    let { data } = await axios.get(`https://api.yelp.com/v3/businesses/search?`,{
-      headers: {
-        Authorization: `Bearer ${YELP_API_KEY}`,
-      },
+    let { data } = await axios.get(`https://api.foursquare.com/v2/venues/explore?`,{
       params: {
-        limit: 2,
-        categories: 'coffee,coffeeroasteries,coffeeshops',
-        latitude: region.latitude,
-        longitude: region.longitude,
+        client_id: CLIENT_ID,
+        client_secret: CLIENT_SECRET,
+        v: 20190305,
+        ll: `${region.latitude}, ${region.longitude}`,
+        limit: 1,
+        radius: 20000,
+        openNow: 1,
+        venuePhotos: 1,
+        categoryId: '4bf58dd8d48988d196941735',
+
       }
     });
-    dispatch ({ type: FETCH_JOBS, payload: data });
+    let datum = data.response.groups[0].items;
+    dispatch ({ type: FETCH_JOBS, payload: datum });
     callback();
   } catch(e) {
     console.error(e);
