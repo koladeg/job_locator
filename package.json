@@ -13,7 +13,7 @@
     "expo-permissions": "~9.3.0",
     "latlng-to-zip": "^0.0.2",
     "lodash": "^4.17.11",
-    "qs": "^6.7.0",
+    "qs": "^6.9.7",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.3.tar.gz",
